@@ -1,0 +1,14 @@
+body {
+    text-align: center;
+    font-family: Arial;
+    background: #f4f4f4;
+}
+
+h2 {
+    color: #333;
+}
+
+#status {
+    font-size: 24px;
+    font-weight: bold;
+}
