@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>🤖 AI Surveillance Pro</h2>
+<a href="/logout">Logout</a>
+
+<br><br>
+
+<img src="/video" width="600">
+
+<h3 id="status">Monitoring...</h3>
+
+<h3>📊 Recent Events</h3>
+<ul id="logs"></ul>
+
+<script>
+function updateStatus(){
+    fetch('/status')
+    .then(r=>r.json())
+    .then(d=>{
+        let s = document.getElementById("status");
+        s.innerText = d.status;
+
+        if(d.status.includes("UNKNOWN")) s.style.color="red";
+        else s.style.color="green";
+    });
+}
+
+function loadLogs(){
+    fetch('/logs')
+    .then(r=>r.json())
+    .then(data=>{
+        let list="";
+        data.forEach(l=>{
+            list += `<li>${l[1]} - ${l[2]}</li>`;
+        });
+        document.getElementById("logs").innerHTML=list;
+    });
+}
+
+setInterval(updateStatus,1000);
+setInterval(loadLogs,3000);
+</script>
+
+</body>
+</html>
